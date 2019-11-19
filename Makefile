@@ -6,15 +6,15 @@
 #    By: wrhett <wrhett@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 20:07:08 by wrhett            #+#    #+#              #
-#    Updated: 2019/11/08 19:31:46 by wrhett           ###   ########.fr        #
+#    Updated: 2019/11/19 11:54:08 by wrhett           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
 SRC = main.c ft_validation.c ft_tetrimino_validation.c \
-	set_array.c set_list.c
-		
+	ft_get_size.c ft_next_tetram.c ft_use_fillit.c ft_set_array.c
+
 OBJECTS = $(patsubst %.c, %.o, $(SRC))
 
 HEADER = fillit.h
@@ -22,7 +22,7 @@ HEADER = fillit.h
 LIBFT = $(LIBFT_PATH) libft.a
 LIBFT_PATH = libft/
 
-#FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 .PHONY: all clean fclean re
 
@@ -50,9 +50,3 @@ fclean: clean
 		@$(MAKE) -C $(LIBFT_PATH) fclean
 
 re: fclean all
-
-#$> make -C libft/ fclean && make -C libft/
-#$> gcc $(FLAGS) -I libft/includes -o get_next_line.o -c get_next_line.c
-#$> clang $(FLAGS) -I libft/includes -o main.o -c main.c
-			  #NAME
-#$> clang -o test_gnl  get_next_line.o -I libft/includes -L libft/ -lft

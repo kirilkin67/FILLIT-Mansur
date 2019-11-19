@@ -6,13 +6,13 @@
 /*   By: wrhett <wrhett@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 12:49:36 by wrhett            #+#    #+#             */
-/*   Updated: 2019/11/08 16:22:52 by wrhett           ###   ########.fr       */
+/*   Updated: 2019/11/16 19:43:34 by wrhett           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int		valid_character(char *str)
+static int	ft_valid_character(char *str)
 {
 	while (*str != '\0')
 	{
@@ -27,7 +27,7 @@ static int		valid_character(char *str)
 	return (1);
 }
 
-static int		valid_block(char *str)
+static int	ft_valid_block(char *str)
 {
 	int	line;
 
@@ -52,7 +52,7 @@ static int		valid_block(char *str)
 	return (1);
 }
 
-static int		valid_tetrimino(char *str)
+static int	ft_valid_tetrimino(char *str)
 {
 	char	*tmp;
 
@@ -61,20 +61,22 @@ static int		valid_tetrimino(char *str)
 	{
 		if (ft_tetrimino_validation(tmp) == 0)
 			return (0);
-		else
+		else if (ft_strlen(tmp) > 20)
 			tmp += 21;
+		else
+			tmp += 20;
 	}
 	return (1);
 }
 
-int		*ft_validation(char *str)
+int			*ft_validation(char *str, size_t len_array)
 {
 	int		*tetras;
 
-	if (str && valid_character(str) && valid_block(str) &&
-	valid_tetrimino(str))
+	if (str && ft_valid_character(str) && ft_valid_block(str) &&
+	ft_valid_tetrimino(str))
 	{
-		tetras = ft_array_tetras(str);
+		tetras = ft_array_tetras(str, len_array);
 		return (tetras);
 	}
 	else

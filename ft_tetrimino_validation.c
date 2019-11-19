@@ -6,24 +6,23 @@
 /*   By: wrhett <wrhett@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 15:51:59 by wrhett            #+#    #+#             */
-/*   Updated: 2019/11/08 15:52:48 by wrhett           ###   ########.fr       */
+/*   Updated: 2019/11/16 19:01:12 by wrhett           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-const int g_tab[19] = {34952, 61440, 52224, 35008, 17600, 11776, 36352, 59392,
-	57856, 51328, 50240, 27648, 50688, 19584, 35904, 19968, 35968, 58368,
-	19520};
-
-static int	is_tetrimino(int tetr)
+static int	ft_is_tetrimino(int tetr)
 {
-	int n;
+	static int	tab[19] = {34952, 61440, 52224, 35008, 17600, 11776, 36352,
+	59392, 57856, 51328, 50240, 27648, 50688, 19584, 35904, 19968, 35968,
+	58368, 19520};
+	int			n;
 
 	n = 0;
 	while (n <= 19)
 	{
-		if (tetr != g_tab[n])
+		if (tetr != tab[n])
 			n += 1;
 		else
 			return (1);
@@ -55,7 +54,7 @@ int			ft_tetrimino_validation(char *str)
 	tetrimino = ft_atoi_binary(str);
 	while (tetrimino <= 61440)
 	{
-		if (is_tetrimino(tetrimino) == 1)
+		if (ft_is_tetrimino(tetrimino) == 1)
 			return (tetrimino);
 		else
 		{
@@ -69,29 +68,29 @@ int			ft_tetrimino_validation(char *str)
 	return (0);
 }
 
-int			*ft_array_tetras(char *str)
+int			*ft_array_tetras(char *str, size_t len_array)
 {
-	size_t	len_array;
-	int		*tetras;
-	int		tetr;
-	int		m;
-	int		n;
+	static int	tab[19] = {34952, 61440, 52224, 35008, 17600, 11776, 36352,
+	59392, 57856, 51328, 50240, 27648, 50688, 19584, 35904, 19968, 35968,
+	58368, 19520};
+	int			*tetras;
+	int			tetr;
+	int			m;
+	int			n;
 
-	len_array = (ft_strlen(str) + 1) / 21;
-	tetras = (int *)malloc(sizeof(int) * (len_array + 1));
+	tetras = (int *)malloc(sizeof(int) * len_array);
 	if (tetras == NULL)
 		return (NULL);
-	tetras[0] = len_array;
-	n = 1;
+	n = 0;
 	while (*str)
 	{
 		tetr = ft_tetrimino_validation(str);
 		m = 0;
-		while (tetr != g_tab[m])
+		while (tetr != tab[m])
 			m += 1;
 		tetras[n] = 101 + m;
+		str = (ft_strlen(str) > 20) ? str + 21 : str + 20;
 		n += 1;
-		str += 21;
 	}
 	return (tetras);
 }
